@@ -158,12 +158,8 @@
         alt=""/>
       <h2 class="subtitle has-text-centered" style="color: red;">
         <br/>
-        We finetune T5 to transform <b>Natural Language (NL)</b> into <b>Signal Temporal Logic (STL)</b>.
-        </h2>
-      <h3 class="subtitle has-text-centered" style="color: blue;">
-        <br/>
-        To access the above Demo Website, please send email to <b>ycchen98@mit.edu</b> for password.
-      </h3>        
+        We combine LLMs with the traditional task and motion planner to transform language instruction into control signals. The LLM's role is as the translator and semantic checkers.
+        </h2>     
     </div>
   </div>
 </section>
@@ -177,10 +173,10 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified abstract-content">
           <p>
-           Temporal Logic (TL) can be used to rigorously specify complex high-level specification for systems in many engineering applications. The translation between natural language (NL) and TL has been under-explored due to the lack of dataset and generalizable model across different application domains.
+           Recent advances in large language models (LLMs) have shown promise for translating natural language into robot action sequences for complex tasks. However, existing approaches either translate the natural language directly into robot trajectories or factor the inference process by decomposing language into task sub-goals and relying on a motion planner to execute each sub-goal. When complex environmental and temporal constraints are involved, inference over planning tasks must be performed jointly with motion plans using traditional task-and-motion planning (TAMP) algorithms, making factorization into subgoals untenable. 
           </p>
           <p>
-           We propose an accurate and generalizable transformation framework of English instructions from NL to TL, exploring the use of Large Language Models (LLMs) at multiple stages. Our contributions are twofold. First, we develop a <b>framework to create a dataset of NL-TL pairs combining LLMs and human annotation</b>. We publish a <b>dataset with 28K NL-TL pairs</b>. Then, we finetune T5 models on the <b>lifted versions</b> (i.e., the specific Atomic Propositions (AP) are hidden) of the NL and TL. The <b>enhanced generalizability</b> originates from two aspects: 1) Usage of lifted NL-TL characterizes common logical structures, without constraints of specific domains. 2) Application of LLMs in dataset creation largely enhances corpus richness.
+           Rather than using LLMs to directly plan task sub-goals, we instead perform few-shot translation from natural language task descriptions to an intermediate task representation that can then be consumed by a TAMP algorithm to jointly solve the task and motion plan. To improve translation, we automatically detect and correct both syntactic and semantic errors via autoregressive re-prompting, resulting in significant improvements in task completion.
           </p>
         </div>
       </div>
@@ -189,60 +185,35 @@
   </div>
 </section>
 
-
-<section class="section">
+<section class="Full prompt part1">
   <div class="container is-max-desktop">
-
-    <div class="columns is-centered">
-
-      <!-- Train in one environment... -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Train the model to convert lifted NL into lifte STL</h2>
-          <img src="./static/images/Fig9.png"
-            class="center-image simulation-image"
-            alt="The CLF and CBF are trained in a single environment"/>
-        </div>
-      </div>
-      <!--/ Train in one environment... -->
-
-      <!-- Generalization. -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Optimized framework to synthesize NL-STL dataset</h2>
-            <img src="./static/images/Fig4.png"
-              class="center-image simulation-image"
-              alt="The CLF and CBF are trained in a single environment"/>
-        </div>
-      </div>
+    <div class="hero-body">
+      <img src="./static/images/head_prompt_few_shot_prompt.png"
+        class="center-image"
+        alt=""/>
+      <h2 class="subtitle has-text-centered" style="color: red;">
+        <br/>
+        Part1 of full prompt used by our AutoTAMP framework. The green part is the task explanation and the blue part is the few-shot examples.
+        </h2>     
     </div>
-    
-    <div class="columns is-centered">
+  </div>
+</section>
 
-      <!-- Train in one environment... -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">The importance of synthesized data</h2>
-          <img src="./static/images/Fig7.png"
-            class="center-image simulation-image"
-            alt="The CLF and CBF are trained in a single environment"/>
-        </div>
-      </div>
-      <!--/ Train in one environment... -->
-
-      <!-- Generalization. -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Statistics of NL-STL datasets and corpus richness</h2>
-            <img src="./static/images/Fig1.png"
-              class="center-image table-image"
-              alt="The CLF and CBF are trained in a single environment"/>
-        </div>
-      </div>
+<section class="Full prompt part2">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/Full prompt.png"
+        class="center-image"
+        alt=""/>
+      <h2 class="subtitle has-text-centered" style="color: red;">
+        <br/>
+        Part2 of full prompt used by our AutoTAMP framework. This shows the left prompt after task explanation and few-shot examples.
+        </h2>     
     </div>
-    <!--/ Generalization. -->
-
-
+  </div>
+</section>
+  
+<section class="Related Work">
     <!-- Concurrent Work. -->
     <div class="columns is-centered">
       <div class="column is-full-width">
